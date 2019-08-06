@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>sp-travel</title>
+    <!-- css -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/fancybox/jquery.fancybox.css" rel="stylesheet">
+    <link href="css/flexslider.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
+        integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI=" crossorigin="anonymous" />
+    <!-- my-style -->
+    <link rel="stylesheet" type="text/css" href="css/my-style.css">
+    <!-- vue cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- <script src="js/vue.js"></script> -->
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <!-- modal 登入驗証-->
+    <div class="modal fade" id="textModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">LOGIN</h4>
+                </div>
+                <br />
+                <div class="modal-body">
+                    <from class="form">
+                        <!-- form-inline -->
+                        <div class="form-group">
+                            <label class="" for="">Account（ex：abc@gmail.com）</label>
+                            <input typy="" class="form-control" id="" placeholder="Account"></input>
+                            <!-- <br/> -->
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="">Password</label>
+                            <input typy="" class="form-control" id="" placeholder="Password"></input>
+                            <!-- <br/> -->
+                        </div>
+                    </from>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                    <button type="submit" class="btn btn-primary">enter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- page start -->
+    <div id="wrapper" class="home-page">
+        <div class="topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="pull-left hidden-xs"><i class="fa fa-clock-o"></i><span>this is the slogen.</span></p>
+                        <p class="pull-right"><a class="text-center" data-toggle="modal" href="#textModal"><i
+                                    class="fa fa-user" aria-hidden="true"></i> LOGIN</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- start header -->
+        <header>
+            <div class="navbar navbar-default navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html">PRACTICE</a>
+                    </div>
+                    <div class="navbar-collapse collapse ">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="index.html">Home</a></li>
+                            <li><a href="#">one</a></li>
+                            <li><a href="#">two</a></li>
+                            <li><a href="#">three</a></li>
+                            <li><a href="#">four</a></li>
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">more<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">one</a></li>
+                                    <li><a href="#">two</li>
+                                    <li><a href="#">three</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- end header -->
+        <section id="banner">
+            <!-- Slider -->
+            <div id="main-slider" class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <img src="img/slides/1.jpg" alt="" />
+                        <div class="flex-caption">
+                            <h3>Globetrotting</h3>
+                            <p>just do it , you can make it.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="img/slides/2.jpg" alt="" />
+                        <div class="flex-caption">
+                            <h3>Globetrotting</h3>
+                            <p>just do it , you can make it.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- end slider -->
+        </section>
+        <!-- content start-->
+        <section>
+            <div id="app">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-3 col_edit">
+                            <h1>Editor</h1>
+                            <hr />
+                            <label>折價</label>
+                            <input class="form-control" v-model="discount" />
+                            <label>服務費</label>
+                            <input class="form-control" v-model="service_fee" />
+                            <button class="btn btn-secondary room_edit" @click="addroom">+ 新增房間</button>
+                            <br />
+                            <hr />
+                            <h3>Editor List {{edit_id + 1 }}</h3>
+                            <select class="form-control" v-model="edit_id">
+                                <option v-for="(r,id) in rooms" :value="id">{{r.name}}</option>
+                            </select>
+                            <div class="room_edit" v-for="(room,id) in [rooms[edit_id]]" v-if="room">
+                                <h4>{{room.name}}</h4>
+                                <label>房間名稱<i class="fas fa-trash-alt cursor_pointer"
+                                        @click="delete_room(edit_id)"></i></label>
+                                <input class="form-control" v-model="room.name" />
+                                <label>價錢</label>
+                                <input class="form-control" v-model="room.price" />
+                                <label>折價</label>
+                                <input class="form-control" v-model="room.discount" />
+                                <label>英文</label>
+                                <input class="form-control" v-model="room.eng" />
+                                <label>圖片網址</label>
+                                <input class="form-control" v-model="room.cover" />
+                                <label>房間設備</label>
+                                <label>早餐
+                                    <input class="form-control" type="checkbox" v-model="room.equipment.wifi" />
+                                </label>
+                                <label>wifi
+                                    <input class="form-control" type="checkbox" v-model="room.equipment.bathtub" />
+                                </label>
+                                <label>浴缸
+                                    <input class="form-control" type="checkbox" v-model="room.equipment.breakfast" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 col_rooms">
+                            <h1>Information</h1>
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-4 col_room" v-for="(room,id) in rooms" v-if="room">
+                                    <room :room_data="room" :hotel_discount="discount" :hotel_fee="service_fee"
+                                        :delete_room="delete_room" :id="id"></room>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <template id="room">
+                <div class="room_container">
+                    <div class="cover" v-bind:style="bg_css">
+                        <h3>{{room_data.name}}</h3><i class="fa fa-times" @click="delete_room(id)"></i>
+                    </div>
+                    <div class="info">
+                        <h5>{{room_data.eng}}</h5>
+                        <div class="icons">
+                            <span v-if="room_data.equipment.breakfast"><i class="fa fa-coffee"></i></span>
+                            <span v-if="room_data.equipment.bathtub"><i class="fa fa-bath"></i></span>
+                            <span v-if="room_data.equipment.wifi"><i class="fa fa-wifi"></i></span>
+                        </div>
+                        <h5>{{ final_discount_show }} 折</h5>
+                        <!-- {{room_data.discount}}*{{hotel_discount}}= -->
+                        <h4>TWD
+                            <s>{{room_data.price}}</s>
+                            <div class="final_price">{{final_price}} </div>
+                        </h4>
+                    </div>
+                </div>
+            </template>
+        </section>
+        <footer>
+            <div id="sub-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="copyright">
+                                <p> Copyright @ by Practice all right reserved.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="social-network">
+                                <li><a href="#" data-placement="top" title="Twitter"><i
+                                            class="fa fa-envelope-o"></i></a></li>
+                                <li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li><a href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+                                </li>
+                                <li><a href="#" data-placement="top" title="Linkedin"><i class="fa fa-weibo"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+    <!-- javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/app.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.fancybox-media.js"></script>
+    <script src="js/jquery.flexslider.js"></script>
+    <script src="js/animate.js"></script>
+    <!-- Vendor Scripts -->
+    <script src="js/modernizr.custom.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/animate.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+
+</html>
